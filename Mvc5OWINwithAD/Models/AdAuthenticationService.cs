@@ -34,6 +34,7 @@ namespace Mvc5OWINwithAD.Models
         public AuthenticationResult SignIn(string username,string password)
         {
             ContextType authType = ContextType.Domain;
+            //TODO 修改AD網域名稱
             PrincipalContext principalContext = new PrincipalContext(authType,"anser-u2.com");
             bool isAuth = false;
             UserPrincipal userPrincipal = null;
@@ -75,8 +76,9 @@ namespace Mvc5OWINwithAD.Models
             var identity = new ClaimsIdentity(MyAuthentication.ApplicationCookie, ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
             System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("en-US");
             identity.AddClaim(new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider", "Active Directory"));
+            //TODO name為User.Identity.Name
             identity.AddClaim(new Claim(ClaimTypes.Name, culture.TextInfo.ToTitleCase(userPrincipal.DisplayName)));
-
+            /*可加入所需使用的Claims*/
             identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, culture.TextInfo.ToTitleCase(userPrincipal.SamAccountName),null,"EnName"));
             if (!string.IsNullOrWhiteSpace(userPrincipal.EmailAddress))
             {

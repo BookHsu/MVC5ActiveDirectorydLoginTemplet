@@ -28,7 +28,7 @@
                 @if (Request.IsAuthenticated)
                 {
                     <ul class="nav navbar-nav navbar-right">
-                        <li>@Html.ActionLink("登出", "Logout", "Login")</li>
+                        <li>@Html.ActionLink(User.Identity.Name, "Logout", "Login",null,new { @title="登出" })</li>
                     </ul>
                 }
                 else
