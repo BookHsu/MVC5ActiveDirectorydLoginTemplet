@@ -35,7 +35,7 @@ namespace Mvc5OWINwithAD.Models
         {
             ContextType authType = ContextType.Domain;
             //TODO 修改AD網域名稱
-            PrincipalContext principalContext = new PrincipalContext(authType,"anser-u2.com");
+            PrincipalContext principalContext = new PrincipalContext(authType,"Active Directory Domain");
             bool isAuth = false;
             UserPrincipal userPrincipal = null;
             try
@@ -57,7 +57,7 @@ namespace Mvc5OWINwithAD.Models
 
             if (userPrincipal.IsAccountLockedOut())
             {
-                return new AuthenticationResult("帳號被鎖定，請洽資訊部人員");
+                return new AuthenticationResult("帳號被鎖定");
             }
 
             if (userPrincipal.Enabled.HasValue&&userPrincipal.Enabled.Value==false)
