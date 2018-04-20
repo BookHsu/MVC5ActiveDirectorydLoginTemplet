@@ -162,10 +162,15 @@
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Filters\CustomerErrorAttribute.cs" />
+    <Compile Include="Filters\PageTitleAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AdAuthenticationService.cs" />
+    <Compile Include="Models\Override\BaseController.cs" />
+    <Compile Include="Models\Override\CustomerCreateActionInvoker.cs" />
+    <Compile Include="Models\Override\JsonNetResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

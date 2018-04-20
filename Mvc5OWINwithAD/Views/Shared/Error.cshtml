@@ -1,14 +1,25 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=11,IE=edge,chrome=1">
     <title>錯誤</title>
+    @Styles.Render("~/Content/css")
+
 </head>
 <body>
-    <hgroup>
-        <h1>錯誤。</h1>
-        <h2>處理您的要求時發生錯誤。</h2>
-    </hgroup>
+    <div class="alert alert-danger alert-dismissible" role="alert">
+
+        <h1>系統發生異常</h1>
+        <h3>造成您的不便，敬請見諒</h3>
+    </div>
+    <div class="alert alert-warning alert-dismissible " role="alert">
+        @TempData["ErrMsg"]
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
 </body>
 </html>

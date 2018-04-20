@@ -6,10 +6,11 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.Owin.Security;
 using Mvc5OWINwithAD.Models;
+using Mvc5OWINwithAD.Models.Override;
 
 namespace Mvc5OWINwithAD.Controllers
 {
-    public class LoginController : Controller
+    public class LoginController : BaseController
     {
         [AllowAnonymous]
         public ActionResult Index()

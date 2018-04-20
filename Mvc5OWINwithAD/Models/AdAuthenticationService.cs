@@ -8,6 +8,9 @@ using Microsoft.Owin.Security;
 
 namespace Mvc5OWINwithAD.Models
 {
+    /// <summary>
+    /// 參考 https://tech.trailmax.info/2016/03/using-owin-and-active-directory-to-authenticate-users-in-asp-net-mvc-5-application/
+    /// </summary>
     public class AdAuthenticationService
     {
         public class AuthenticationResult
@@ -33,8 +36,8 @@ namespace Mvc5OWINwithAD.Models
         /// <returns></returns>
         public AuthenticationResult SignIn(string username,string password)
         {
-            ContextType authType = ContextType.Domain;
-            //TODO 修改AD網域名稱
+            ContextType authType = ContextType.Domain;    
+            //TODO 修改Domain
             PrincipalContext principalContext = new PrincipalContext(authType,"Active Directory Domain");
             bool isAuth = false;
             UserPrincipal userPrincipal = null;
@@ -76,7 +79,8 @@ namespace Mvc5OWINwithAD.Models
             var identity = new ClaimsIdentity(MyAuthentication.ApplicationCookie, ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
             System.Globalization.CultureInfo culture = new System.Globalization.CultureInfo("en-US");
             identity.AddClaim(new Claim("http://schemas.microsoft.com/accesscontrolservice/2010/07/claims/identityprovider", "Active Directory"));
-            //TODO name為User.Identity.Name
+            //TODO Memo:name為User.Identity.Name
+            //TODO Memo:identity.AddClaim(new Claim(ClaimTypes.Role, RoleName)); 可設定ROLE
             identity.AddClaim(new Claim(ClaimTypes.Name, culture.TextInfo.ToTitleCase(userPrincipal.DisplayName)));
             /*可加入所需使用的Claims*/
             identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, culture.TextInfo.ToTitleCase(userPrincipal.SamAccountName),null,"EnName"));
