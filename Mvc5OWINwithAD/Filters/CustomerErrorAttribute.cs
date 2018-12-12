@@ -33,7 +33,7 @@ namespace Mvc5OWINwithAD.Filters
             ControllerName = filterContext.RouteData.Values["controller"].ToString();
             ActionType = filterContext.HttpContext.Request.HttpMethod;
             UserName =string.IsNullOrWhiteSpace(filterContext.HttpContext.User.Identity.Name) ? "未知的使用者" : filterContext.HttpContext.User.Identity.Name;
-            string GuidKey = ex.GetHashCode().ToString();
+            string GuidKey = Math.Abs(ex.GetHashCode()).ToString();
             var fucntionName = $"{ControllerName}_{ActionName}_{ActionType}";
             //TODO 可加入LOG記錄在此處
             //LibroLib.ShareMethod.PutLog(fucntionName, $"由{UserName}觸發{ExceptionType.FullName}:識別碼：{GuidKey}");

@@ -13,11 +13,35 @@ namespace Mvc5OWINwithAD
 
         protected void Application_Error(object sender, EventArgs e)
         {
+            string errorMsg = "Global Error Key:{0} 發生例外網址:{1}  HttpMethod:{2} 使用者:{3}";
             Exception exception = Server.GetLastError();
-            var code = (exception is HttpException) ? (exception as HttpException).GetHttpCode() : 500;
+            HttpContext httpContext = HttpContext.Current;
+            RouteData routeData = new RouteData();
+            HttpException httpException = exception as HttpException;
+            string GuidKey = Math.Abs(exception.GetHashCode()).ToString();
+            string httpErrorCode = string.Empty;
             var ActionType = Request.HttpMethod;
-            var UserName = string.IsNullOrWhiteSpace(HttpContext.Current.User.Identity.Name) ? "未知的使用者" : HttpContext.Current.User.Identity.Name;
-            string RequestUrl = Request.Url.ToString();
+            var UserName = string.IsNullOrWhiteSpace(httpContext.User.Identity.Name) ? "NaN" : httpContext.User.Identity.Name;
+            if (httpException != null)
+            {
+                httpErrorCode = httpException.GetHttpCode().ToString();
+            }
+            errorMsg = string.Format(errorMsg, GuidKey, Request.Url.ToString(), ActionType, UserName);
+            routeData.Values.Add("controller", "Error");
+            routeData.Values.Add("error", GuidKey);
+            switch (httpErrorCode)
+            {
+                case "404":
+                    routeData.Values.Add("action", "General");
+                    break;
+                case "500":
+                    routeData.Values.Add("action", "General");
+                    break;
+                default:
+                    routeData.Values.Add("action", "General");
+                    break;
+            }
+
             //TODO 在此處紀錄log 
             //LibroLib.ShareMethod.PutLog("Global_Error", $"由{UserName}觸發{exception.GetType().FullName}");
             //LibroLib.ShareMethod.PutLog("Global_Error", $"HttpMethod:{ActionType}     Url:{RequestUrl}     StatusCode{code}");
